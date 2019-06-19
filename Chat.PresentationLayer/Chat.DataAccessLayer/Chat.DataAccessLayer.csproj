@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{191FB4C1-3CED-4589-8418-D8FE6F20ED2B}</ProjectGuid>
+    <ProjectGuid>{6DBBA9EE-8393-4607-A5EC-FCBE18347D52}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Chat.BusinessLogicLayer</RootNamespace>
-    <AssemblyName>Chat.BusinessLogicLayer</AssemblyName>
+    <RootNamespace>Chat.DataAccessLayer</RootNamespace>
+    <AssemblyName>Chat.DataAccessLayer</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
