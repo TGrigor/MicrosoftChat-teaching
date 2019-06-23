@@ -24,5 +24,10 @@ namespace Chat.PresentationLayer.Pages
         {
             InitializeComponent();
         }
+
+        private void LoginButton(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow) App.Current.MainWindow).main.Content = new Login();
+        }
     }
 }

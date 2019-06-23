@@ -9,7 +9,5 @@
     Width="800"
     Height="450"
     mc:Ignorable="d">
-    <Frame Name="mainFrame" >
-
-    </Frame>
+    <Frame Name="main" NavigationUIVisibility="Hidden" />
 </Window>

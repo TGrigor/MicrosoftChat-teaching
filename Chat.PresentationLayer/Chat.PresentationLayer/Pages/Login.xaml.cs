@@ -24,5 +24,19 @@ namespace Chat.PresentationLayer.Pages
         {
             InitializeComponent();
         }
+
+        private void RegistrationButton(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)App.Current.MainWindow).main.Content = new Registration();
+        }
+
+        private void LoginButton(object sender, RoutedEventArgs e)
+        {
+            var userName = userNameBox.Text;
+            var password = passwordBox.Password;
+
+            MessageBox.Show(userName);
+            MessageBox.Show(password);
+        }
     }
 }

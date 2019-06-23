@@ -9,5 +9,70 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Label Content="Register Page" Foreground="Red" />
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/background.jpg" Stretch="UniformToFill" />
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Label
+            Grid.Row="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Content="Sign Up"
+            FontSize="40"
+            Foreground="Black" />
+        <StackPanel Grid.Row="1" Margin="10">
+            <TextBlock
+                FontSize="20"
+                Foreground="Black"
+                Text="User Name" />
+            <TextBox
+                Name="userNameBox"
+                Height="30"
+                Padding="10,5,0,0"
+                FontSize="10" />
+        </StackPanel>
+        <StackPanel Grid.Row="2" Margin="10">
+            <TextBlock
+                FontSize="20"
+                Foreground="Black"
+                Text="Password" />
+            <PasswordBox
+                Name="passwordBox"
+                Height="30"
+                Padding="10,5,0,0"
+                FontSize="10" />
+        </StackPanel>
+        <StackPanel Grid.Row="3" Margin="10">
+            <TextBlock
+                FontSize="20"
+                Foreground="Black"
+                Text="Confirm Password" />
+            <PasswordBox
+                Name="confPasswordBox"
+                Height="30"
+                Padding="10,5,0,0"
+                FontSize="10" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="4"
+            Margin="0,25"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <Button
+                Width="100"
+                Click="LoginButton"
+                Content="Login" />
+            <Button
+                Width="100"
+                Margin="20,0,0,0"
+                Content="Sign Up" />
+        </StackPanel>
+    </Grid>
 </Page>
