@@ -24,12 +24,7 @@ namespace Chat.BusinessLogicLayer.Managers
 
         public bool Login(UserModel user)
         {
-            var userbla = users.FirstOrDefault(s => s.UserName == user.UserName && s.Password == user.Password);
-            if (userbla != null)
-            {
-                return true;
-            }
-            return false;
+            return users.Any(s => s.UserName == user.UserName && s.Password == user.Password);
         }
     }
 }
