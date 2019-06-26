@@ -1,42 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Chat.PresentationLayer.Models;
+using Chat.BusinessLogicLayer.Managers;
+using Chat.BusinessLogicLayer.Models;
+using Chat.PresentationLayer.Utilities;
 
 namespace Chat.PresentationLayer.Pages
 {
-    /// <summary>
-    /// Interaction logic for SignIn.xaml
-    /// </summary>
     public partial class SignIn : Page
     {
+        private readonly UserManager _userManager = new UserManager();
+        public UserSignInModel UserSignIn { get; set; } = new UserSignInModel();
+
         public SignIn()
         {
             InitializeComponent();
         }
 
-        private void RegistrationButton(object sender, RoutedEventArgs e)
+        private void SignUpClick(object sender, RoutedEventArgs e)
         {
             NavigationService?.Navigate(new SignUp());
         }
 
-        private void LoginButton(object sender, RoutedEventArgs e)
+        private void SignInClick(object sender, RoutedEventArgs e)
         {
-            var userName = userNameBox.Text;
-            var password = passwordBox.Password;
+            var currentUser = new UserModel()
+            {
+                UserName = UserSignIn.UserName,
+                Password = UserSignIn.Password
+            };
 
-            MessageBox.Show(userName);
-            MessageBox.Show(password);
+            var isUserExists = _userManager.Login(currentUser);
+
+            if (isUserExists)
+            {
+                MessageBox.Show("Sign In Success!");
+            }
+            else
+            {
+                MessageBox.Show("Fail!");
+            }
+        }
+
+        private void PasswordBox_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            UserSignIn.Password = HashingUtilities.GetHash512(passwordBox.Password);
         }
     }
 }

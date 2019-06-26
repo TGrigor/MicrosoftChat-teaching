@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Utilities\HashingUtilities.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -77,6 +78,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\UserSignInModel.cs" />
+    <Compile Include="Models\UserSignUpModel.cs" />
     <Compile Include="Pages\SignIn.xaml.cs">
       <DependentUpon>SignIn.xaml</DependentUpon>
     </Compile>
@@ -112,7 +115,10 @@
     <Resource Include="Images\background.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="NewFolder1\" />
+    <ProjectReference Include="..\Chat.BusinessLogicLayer\Chat.BusinessLogicLayer.csproj">
+      <Project>{191fb4c1-3ced-4589-8418-d8fe6f20ed2b}</Project>
+      <Name>Chat.BusinessLogicLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
