@@ -16,18 +16,27 @@ using System.Windows.Shapes;
 namespace Chat.PresentationLayer.Pages
 {
     /// <summary>
-    /// Interaction logic for Registration.xaml
+    /// Interaction logic for SignIn.xaml
     /// </summary>
-    public partial class Registration : Page
+    public partial class SignIn : Page
     {
-        public Registration()
+        public SignIn()
         {
             InitializeComponent();
         }
 
+        private void RegistrationButton(object sender, RoutedEventArgs e)
+        {
+            NavigationService?.Navigate(new SignUp());
+        }
+
         private void LoginButton(object sender, RoutedEventArgs e)
         {
-            ((MainWindow) App.Current.MainWindow).main.Content = new Login();
+            var userName = userNameBox.Text;
+            var password = passwordBox.Password;
+
+            MessageBox.Show(userName);
+            MessageBox.Show(password);
         }
     }
 }

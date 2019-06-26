@@ -25,7 +25,7 @@ namespace Chat.PresentationLayer
         public MainWindow()
         {
             InitializeComponent();
-            main.Content = new Login();
+            main.Content = new SignIn();
         }
     }
 }
