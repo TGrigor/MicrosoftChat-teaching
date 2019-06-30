@@ -35,6 +35,7 @@ namespace Chat.PresentationLayer.Pages
             if (isUserExists)
             {
                 MessageBox.Show("Sign In Success!");
+                NavigationService.Navigate(new Chat());
             }
             else
             {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Chat.PresentationLayer.Models
+namespace Chat.BusinessLogicLayer.Models
 {
-    public class UserSignUpModel : UserSignInModel
+    public class UserRegistrationModel: UserModel
     {
         public string ConfPassword { get; set; }
     }
