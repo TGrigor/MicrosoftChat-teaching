@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Chat.BusinessLogicLayer.Enums;
 using Chat.BusinessLogicLayer.Managers;
 using Chat.BusinessLogicLayer.Models;
 using Chat.PresentationLayer.Models;
@@ -39,23 +40,19 @@ namespace Chat.PresentationLayer.Pages
 
         private void SignUpClick(object sender, RoutedEventArgs e)
         {
-            var result = _userManager.Registrate(new UserRegistrationModel()
+            var response = _userManager.Registrate(new UserRegistrationModel()
             {
                 UserName = UserSignUp.UserName,
                 Password = UserSignUp.Password,
                 ConfPassword = UserSignUp.ConfPassword
             });
 
-            if (result)
+            if (response.Type == ResponseType.Success)
             {
-                MessageBox.Show("Success");
                 NavigationService.Navigate(new SignIn());
             }
-            else
-            {
-                MessageBox.Show("Failed");
-                       
-            }
+
+            MessageBox.Show($"Type: {response.Type}|    Message: {response.Message}");
         }
 
         private void PasswordBox_OnLostFocus(object sender, RoutedEventArgs e)

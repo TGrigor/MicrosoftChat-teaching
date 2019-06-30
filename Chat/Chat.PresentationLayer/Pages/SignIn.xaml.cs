@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Chat.BusinessLogicLayer.Enums;
 using Chat.PresentationLayer.Models;
 using Chat.BusinessLogicLayer.Managers;
 using Chat.BusinessLogicLayer.Models;
@@ -24,23 +25,18 @@ namespace Chat.PresentationLayer.Pages
 
         private void SignInClick(object sender, RoutedEventArgs e)
         {
-            var currentUser = new UserModel()
+            var response = _userManager.Login(new UserModel()
             {
                 UserName = UserSignIn.UserName,
                 Password = UserSignIn.Password
-            };
+            });
 
-            var isUserExists = _userManager.Login(currentUser);
-
-            if (isUserExists)
+            if (response.Type == ResponseType.Success)
             {
-                MessageBox.Show("Sign In Success!");
                 NavigationService.Navigate(new Chat());
             }
-            else
-            {
-                MessageBox.Show("Fail!");
-            }
+
+            MessageBox.Show($"Type: {response.Type}|    Message: {response.Message}");
         }
 
         private void PasswordBox_OnLostFocus(object sender, RoutedEventArgs e)

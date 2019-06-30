@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\ResponseType.cs" />
     <Compile Include="Managers\UserManager.cs" />
+    <Compile Include="Models\ResponseResult.cs" />
     <Compile Include="Models\SessionInfo.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\UserRegistrationModel.cs" />
