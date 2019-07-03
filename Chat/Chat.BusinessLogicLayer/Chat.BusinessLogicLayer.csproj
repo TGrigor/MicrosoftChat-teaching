@@ -49,6 +49,11 @@
     <Compile Include="Models\UserRegistrationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Chat.DataAccessLayer\Chat.DataAccessLayer.csproj">
+      <Project>{6dbba9ee-8393-4607-a5ec-fcbe18347d52}</Project>
+      <Name>Chat.DataAccessLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

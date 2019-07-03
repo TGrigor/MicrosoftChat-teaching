@@ -1,35 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Chat.BusinessLogicLayer.Enums;
 using Chat.BusinessLogicLayer.Models;
+using Chat.DataAccessLayer.Dto;
+using Chat.DataAccessLayer.Repasitory;
 
 namespace Chat.BusinessLogicLayer.Managers
 {
     public class UserManager
     {
-        private static List<UserModel> users =new List<UserModel>();
+        private readonly UserRepasitory _userRepasitory;
 
         public UserManager()
         {
-            if (!users.Any())
-            {
-                users.Add(new UserModel()
-                {
-                    UserName = "User",
-                    Password = "cbe0cd68cbca3868250c0ba545c48032f43eb0e8a5e6bab603d109251486f77a91e46a3146d887e37416c6bdb6cbe701bd514de778573c9b0068483c1c626aec"
-                });
-            }
+            _userRepasitory = new UserRepasitory();
         }
 
         public ResponseResult<bool> Login(UserModel user)
         {
             try
             {
-                var currentUser = users.FirstOrDefault(s => s.UserName == user.UserName && s.Password == user.Password);
+                var currentUser = _userRepasitory.GetUser(new UserDto()
+                {
+                    UserName = user.UserName,
+                    Password = user.Password
+                });
+
                 if (currentUser != null)
                 {
-                    SessionInfo.CurrentUserInfo = currentUser;
+                    SessionInfo.CurrentUserInfo = new UserModel()
+                    {
+                        UserName = currentUser.UserName,
+                        Password = currentUser.Password
+                    };
                     return new ResponseResult<bool>()
                     {
                         Type = ResponseType.Success,
@@ -61,9 +63,9 @@ namespace Chat.BusinessLogicLayer.Managers
                 {
                     if (user.Password.Equals(user.ConfPassword))
                     {
-                        if (users.Any(s => s.UserName != user.UserName))
+                        if (!_userRepasitory.IsUserExist(user.UserName))
                         {
-                            users.Add(new UserModel()
+                            _userRepasitory.Add(new UserDto()
                             {
                                 UserName = user.UserName,
                                 Password = user.Password
