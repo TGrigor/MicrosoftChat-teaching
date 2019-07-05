@@ -2,24 +2,24 @@
 using Chat.BusinessLogicLayer.Enums;
 using Chat.BusinessLogicLayer.Models;
 using Chat.DataAccessLayer.Dto;
-using Chat.DataAccessLayer.Repasitory;
+using Chat.DataAccessLayer.Repository;
 
 namespace Chat.BusinessLogicLayer.Managers
 {
     public class UserManager
     {
-        private readonly UserRepasitory _userRepasitory;
+        private readonly UserRepository _userRepository;
 
         public UserManager()
         {
-            _userRepasitory = new UserRepasitory();
+            _userRepository = new UserRepository();
         }
 
         public ResponseResult<bool> Login(UserModel user)
         {
             try
             {
-                var currentUser = _userRepasitory.GetUser(new UserDto()
+                var currentUser = _userRepository.GetUser(new UserDto()
                 {
                     UserName = user.UserName,
                     Password = user.Password
@@ -63,9 +63,9 @@ namespace Chat.BusinessLogicLayer.Managers
                 {
                     if (user.Password.Equals(user.ConfPassword))
                     {
-                        if (!_userRepasitory.IsUserExist(user.UserName))
+                        if (!_userRepository.IsUserExist(user.UserName))
                         {
-                            _userRepasitory.Add(new UserDto()
+                            _userRepository.Add(new UserDto()
                             {
                                 UserName = user.UserName,
                                 Password = user.Password

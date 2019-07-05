@@ -2,13 +2,13 @@
 using Chat.DataAccessLayer.Dto;
 using Chat.DataAccessLayer.EntityModels;
 
-namespace Chat.DataAccessLayer.Repasitory
+namespace Chat.DataAccessLayer.Repository
 {
-    public class UserRepasitory
+    public class UserRepository
     {
         private readonly MicrosoftChatEntities _context;
 
-        public UserRepasitory()
+        public UserRepository()
         {
             _context = new MicrosoftChatEntities();
         }
