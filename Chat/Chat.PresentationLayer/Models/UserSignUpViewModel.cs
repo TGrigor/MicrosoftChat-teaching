@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Chat.PresentationLayer.Models
 {
-    public class UserSignUpModel : UserSignInModel
+    public class UserSignUpViewModel : UserSignInViewModel
     {
         public string ConfPassword { get; set; }
     }

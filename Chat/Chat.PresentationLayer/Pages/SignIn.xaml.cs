@@ -11,7 +11,7 @@ namespace Chat.PresentationLayer.Pages
     public partial class SignIn : Page
     {
         private readonly UserManager _userManager = new UserManager();
-        public UserSignInModel UserSignIn { get; set; } = new UserSignInModel();
+        public UserSignInViewModel UserSignIn { get; set; } = new UserSignInViewModel();
 
         public SignIn()
         {

@@ -62,6 +62,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Pages\Chat.xaml.cs">
       <DependentUpon>Chat.xaml</DependentUpon>
     </Compile>
@@ -92,8 +93,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\UserSignInModel.cs" />
-    <Compile Include="Models\UserSignUpModel.cs" />
+    <Compile Include="Models\UserSignInViewModel.cs" />
+    <Compile Include="Models\UserSignUpViewModel.cs" />
     <Compile Include="Pages\SignIn.xaml.cs">
       <DependentUpon>SignIn.xaml</DependentUpon>
     </Compile>

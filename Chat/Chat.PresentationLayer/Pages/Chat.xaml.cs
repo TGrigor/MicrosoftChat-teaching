@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Chat.BusinessLogicLayer.Managers;
+using Chat.PresentationLayer.Models;
 
 namespace Chat.PresentationLayer.Pages
 {
@@ -20,9 +22,33 @@ namespace Chat.PresentationLayer.Pages
     /// </summary>
     public partial class Chat : Page
     {
+        public List<UserViewModel> UserList { get; set; }
+        public UserViewModel SelectedUser { get; set; }
+        private readonly UserManager _userManager = new UserManager();
+
         public Chat()
         {
+            UserList = new List<UserViewModel>();
+            SelectedUser = new UserViewModel();
             InitializeComponent();
+        }
+
+        private void ListOfUsers_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var users = _userManager.GetAllUsers();
+            foreach (var user in users)
+            {
+                UserList.Add(new UserViewModel()
+                {
+                    Id = user.Id,
+                    UserName = user.UserName
+                });
+            }
+        }
+
+
+        private void Send_OnClick(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

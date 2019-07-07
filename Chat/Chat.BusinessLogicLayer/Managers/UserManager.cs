@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Chat.BusinessLogicLayer.Enums;
 using Chat.BusinessLogicLayer.Models;
 using Chat.DataAccessLayer.Dto;
@@ -104,6 +106,28 @@ namespace Chat.BusinessLogicLayer.Managers
                     Message = e.Message
                 };
             }
+        }
+
+        public List<UserModel> GetAllUsers()
+        {
+            var users = _userRepository.GetAllUsers();
+
+            //TODO remove code
+            //List<UserModel> userModelList = new List<UserModel>();
+            //foreach (var user in users)
+            //{
+            //    userModelList.Add(new UserModel()
+            //    {
+            //        Id = user.Id,
+            //        UserName = user.UserName
+            //    });             
+            //}
+
+            return users.Select(s => new UserModel()
+            {
+                Id = s.Id,
+                UserName = s.UserName
+            }).ToList();
         }
     }
 }
