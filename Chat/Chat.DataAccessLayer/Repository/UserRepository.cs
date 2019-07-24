@@ -32,6 +32,7 @@ namespace Chat.DataAccessLayer.Repository
             if (entityUser != null)
                 return new UserDto()
                 {
+                    Id = entityUser.Id,
                     UserName = entityUser.UserName,
                     Password = entityUser.Password
                 };
@@ -39,20 +40,15 @@ namespace Chat.DataAccessLayer.Repository
             return null;
         }
 
-        public List<UserDto> GetAllUsers()
+        public List<UserDto> GetAllUsers(int currentUserId)
         {
             var query = (from user in _context.Users
+                         where user.Id != currentUserId
                          select new UserDto()
                          {
                              Id = user.Id,
                              UserName = user.UserName
                          });
-
-            //var queryWithFunctions = _context.Users.Select(s => new UserDto()
-            //{
-            //    Id = s.Id,
-            //    UserName = s.UserName
-            //});
 
             var data = query.ToList();
 

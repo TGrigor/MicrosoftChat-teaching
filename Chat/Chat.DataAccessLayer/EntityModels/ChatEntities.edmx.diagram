@@ -6,6 +6,9 @@
     <edmx:Diagrams>
       <Diagram DiagramId="eb06f776dd24430cb2b6b20640d206c2" Name="Diagram1">
         <EntityTypeShape EntityType="MicrosoftChatModel.User" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MicrosoftChatModel.Message" Width="1.5" PointX="3" PointY="4.875" />
+        <AssociationConnector Association="MicrosoftChatModel.FK_Messages_Users" />
+        <AssociationConnector Association="MicrosoftChatModel.FK_Messages_Users1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Chat.BusinessLogicLayer.Managers;
+using Chat.BusinessLogicLayer.Models;
 using Chat.PresentationLayer.Models;
 
 namespace Chat.PresentationLayer.Pages
@@ -22,13 +24,15 @@ namespace Chat.PresentationLayer.Pages
     /// </summary>
     public partial class Chat : Page
     {
-        public List<UserViewModel> UserList { get; set; }
+        public ObservableCollection<UserViewModel> UserList { get; set; }
+        public ChatViewModel ChatViewModel { get; set; } = new ChatViewModel();
         public UserViewModel SelectedUser { get; set; }
         private readonly UserManager _userManager = new UserManager();
+        private readonly ChatManager _chatManager = new ChatManager();
 
         public Chat()
         {
-            UserList = new List<UserViewModel>();
+            UserList = new ObservableCollection<UserViewModel>();
             SelectedUser = new UserViewModel();
             InitializeComponent();
         }
@@ -46,9 +50,15 @@ namespace Chat.PresentationLayer.Pages
             }
         }
 
-
         private void Send_OnClick(object sender, RoutedEventArgs e)
         {
+            var response = _chatManager.SendMessage(new ChatModel()
+            {
+                Text = ChatViewModel.Text,
+                UserIdTo = SelectedUser.Id
+            });
+
+            MessageBox.Show($"Type: {response.Type}|    Message: {response.Message}");
         }
     }
 }

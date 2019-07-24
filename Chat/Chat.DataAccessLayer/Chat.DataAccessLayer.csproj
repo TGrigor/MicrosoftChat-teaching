@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\ChatDto.cs" />
     <Compile Include="Dto\UserDto.cs" />
     <Compile Include="EntityModels\ChatEntities.Context.cs">
       <AutoGen>True</AutoGen>
@@ -66,10 +67,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ChatEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="EntityModels\Message.cs">
+      <DependentUpon>ChatEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModels\User.cs">
       <DependentUpon>ChatEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ChatRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup />

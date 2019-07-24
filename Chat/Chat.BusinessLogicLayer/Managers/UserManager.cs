@@ -31,6 +31,7 @@ namespace Chat.BusinessLogicLayer.Managers
                 {
                     SessionInfo.CurrentUserInfo = new UserModel()
                     {
+                        Id = currentUser.Id,
                         UserName = currentUser.UserName,
                         Password = currentUser.Password
                     };
@@ -110,18 +111,7 @@ namespace Chat.BusinessLogicLayer.Managers
 
         public List<UserModel> GetAllUsers()
         {
-            var users = _userRepository.GetAllUsers();
-
-            //TODO remove code
-            //List<UserModel> userModelList = new List<UserModel>();
-            //foreach (var user in users)
-            //{
-            //    userModelList.Add(new UserModel()
-            //    {
-            //        Id = user.Id,
-            //        UserName = user.UserName
-            //    });             
-            //}
+            var users = _userRepository.GetAllUsers(SessionInfo.CurrentUserInfo.Id);
 
             return users.Select(s => new UserModel()
             {
