@@ -46,5 +46,15 @@ namespace Chat.BusinessLogicLayer.Managers
             }
            
         }
+
+        public List<ChatModel> GetMessages(int selectedUserId)
+        {
+            return _chatRepository.GetMessages(selectedUserId, SessionInfo.CurrentUserInfo.Id).Select(s =>
+                new ChatModel()
+                {
+                    Text = s.Text,
+                    UserIdTo = s.UserIdTo
+                }).ToList();
+        }
     }
 }

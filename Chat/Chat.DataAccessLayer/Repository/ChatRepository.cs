@@ -29,5 +29,24 @@ namespace Chat.DataAccessLayer.Repository
 
             _context.SaveChanges();
         }
+
+        public List<ChatDto> GetMessages(int selectedUserId, int currentUserId)
+        {
+            var query = (from message in _context.Messages
+                        where (message.UserIdFrom == currentUserId && message.UserIdTo == selectedUserId) ||
+                              (message.UserIdFrom == selectedUserId && message.UserIdTo == currentUserId)
+                        select new
+                        {
+                            message.UserIdTo,
+                            message.Text,
+                            message.CreatedOn
+                        }).OrderBy(o => o.CreatedOn).Select(s => new ChatDto()
+                                                                 {
+                                                                     UserIdTo = s.UserIdTo,
+                                                                     Text = s.Text
+                                                                 });
+            var listOfMessages = query.ToList();
+            return listOfMessages;
+        }
     }
 }

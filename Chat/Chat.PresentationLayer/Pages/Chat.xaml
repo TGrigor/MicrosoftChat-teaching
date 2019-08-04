@@ -22,13 +22,30 @@
         <ScrollViewer
             Grid.Row="0"
             Grid.Column="0"
-            Background="CadetBlue" />
+            Background="CadetBlue">
+            <StackPanel Name="messagesMainStackPanel">
+                <!--<StackPanel Margin="10,10,0,0">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        FontSize="15"
+                        Foreground="Aqua"
+                        Text="User1" />
+                    <TextBlock
+                        Width="400"
+                        HorizontalAlignment="Left"
+                        Foreground="GreenYellow"
+                        Text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+                        TextWrapping="Wrap" />
+                </StackPanel>-->
+            </StackPanel>
+        </ScrollViewer>
         <ListBox
             Grid.Row="0"
             Grid.Column="1"
             Foreground="CadetBlue"
             ItemsSource="{Binding UserList}"
             Loaded="ListOfUsers_OnLoaded"
+            SelectionChanged="Selector_OnSelectionChanged"
             SelectedItem="{Binding SelectedUser}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
