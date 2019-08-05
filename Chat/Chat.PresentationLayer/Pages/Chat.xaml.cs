@@ -18,6 +18,8 @@ using Chat.BusinessLogicLayer.Enums;
 using Chat.BusinessLogicLayer.Managers;
 using Chat.BusinessLogicLayer.Models;
 using Chat.PresentationLayer.Models;
+using Chat.PresentationLayer.Templates;
+using Chat.PresentationLayer.Utilities;
 
 namespace Chat.PresentationLayer.Pages
 {
@@ -41,8 +43,12 @@ namespace Chat.PresentationLayer.Pages
 
         private async void ListOfUsers_OnLoaded(object sender, RoutedEventArgs e)
         {
-            GetAllUsers();
-            // await RunPeriodicAsync(GetAllUsers, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(5), CancellationToken.None);
+            await PeriodicTask.Run(GetAllUsers, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(5), CancellationToken.None);
+        }
+
+        private async void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            await PeriodicTask.Run(GetMessages, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1), CancellationToken.None);
         }
 
         private void Send_OnClick(object sender, RoutedEventArgs e)
@@ -59,44 +65,6 @@ namespace Chat.PresentationLayer.Pages
             }
         }
 
-        private void AddMessage(string userName, string message, bool isCurrentUser)
-        {
-            StackPanel newStackPanel = new StackPanel();
-            newStackPanel.Width = 400;
-
-            TextBlock newUserNameTextBlock = new TextBlock();
-            newUserNameTextBlock.Text = userName;
-            newUserNameTextBlock.FontSize = 15;
-            newUserNameTextBlock.Foreground = Brushes.Aqua;
-
-            TextBlock newMessageTextBlock = new TextBlock();
-            newMessageTextBlock.Text = message;
-            newMessageTextBlock.TextWrapping = TextWrapping.Wrap;
-
-            if (!isCurrentUser)
-            {
-                newStackPanel.Margin = new Thickness(10,10,0,0);
-                newStackPanel.HorizontalAlignment = HorizontalAlignment.Left;
-            }
-            else
-            {
-                newStackPanel.Margin = new Thickness(0,10,10,0);
-                newStackPanel.HorizontalAlignment = HorizontalAlignment.Right;
-                newUserNameTextBlock.TextAlignment = TextAlignment.Right;
-                newMessageTextBlock.TextAlignment = TextAlignment.Right;
-            }
-
-            newStackPanel.Children.Add(newUserNameTextBlock);
-            newStackPanel.Children.Add(newMessageTextBlock);
-
-            messagesMainStackPanel.Children.Add(newStackPanel);
-        }
-
-        private async void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            await RunPeriodicAsync(GetMessages, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1), CancellationToken.None);
-        }
-
         private void GetMessages()
         {
             messagesMainStackPanel.Children.Clear();
@@ -106,45 +74,22 @@ namespace Chat.PresentationLayer.Pages
                 foreach (var message in messages)
                 {
                     var isSelectedUser = message.UserIdTo == SelectedUser.Id;
-                    AddMessage(isSelectedUser ? SessionInfo.CurrentUserInfo.UserName : SelectedUser.UserName, message.Text, isSelectedUser);
+                    messagesMainStackPanel.Children.Add(PageTemplates.AddMessageTemplate(isSelectedUser ? SessionInfo.CurrentUserInfo.UserName : SelectedUser.UserName, message.Text, isSelectedUser));
                 }
             }
-
         }
 
         private void GetAllUsers()
         {
             var users = _userManager.GetAllUsers();
-            UserList.Clear();
-            foreach (var user in users)
+            var newUsers = users.Where(s => !UserList.Select(ss => ss.Id).Contains(s.Id)).ToList();
+            foreach (var user in newUsers)
             {
                 UserList.Add(new UserViewModel()
-                {
-                    Id = user.Id,
-                    UserName = user.UserName
-                });
-            }
-        }
-
-        private static async Task RunPeriodicAsync(
-            Action onTick,
-            TimeSpan dueTime,
-            TimeSpan interval,
-            CancellationToken token)
-        {
-            // Initial wait time before we begin the periodic loop.
-            if (dueTime > TimeSpan.Zero)
-                await Task.Delay(dueTime, token);
-
-            // Repeat this loop until cancelled.
-            while (!token.IsCancellationRequested)
-            {
-                // Call our onTick function.
-                onTick?.Invoke();
-
-                // Wait to repeat again.
-                if (interval > TimeSpan.Zero)
-                    await Task.Delay(interval, token);
+                             {
+                                 Id       = user.Id,
+                                 UserName = user.UserName
+                             });
             }
         }
     }
